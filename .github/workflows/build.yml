@@ -30,6 +30,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Make gradlew is executable
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle
         run: ./gradlew build
 
@@ -42,4 +45,3 @@ jobs:
           name: Java Build Artifacts
           path: |
             build/libs/*.jar
-            !build/libs/original-*.jar
