@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "lncvrt-addons",
+  "version": "${version}",
+  "name": "Lncvrt Addons",
+  "description": "Misc features & addons for Meteor Client",
+  "authors": [
+    "Lncvrt"
+  ],
+  "contact": {
+    "issues": "https://github.com/Lncvrt/lncvrt-addons/issues",
+    "sources": "https://github.com/Lncvrt/lncvrt-addons",
+    "discord": "https://lncvrt.xyz/discord"
+  },
+  "icon": "assets/lncvrt-addons/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "xyz.lncvrt.lncvrtAddons.LncvrtAddons"
+    ]
+  },
+  "mixins": [
+    "lncvrt-addons.mixins.json"
+  ],
+  "custom": {
+    "meteor-client:color": "134,26,240",
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://lncvrt.xyz/discord"
+      }
+    }
+  },
+  "depends": {
+    "java": ">=21",
+    "minecraft": [
+      "${mc_version}"
+    ],
+    "meteor-client": "*"
+  },
+  "license":"MIT"
+}
