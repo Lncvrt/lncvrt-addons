@@ -3,7 +3,8 @@
   "package": "xyz.lncvrt.lncvrtAddons.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "ClientPlayNetworkHandlerMixin"
+    "AutoLoginMixin",
+    "FallSpeedMixin"
   ],
   "injectors": {
     "defaultRequire": 1

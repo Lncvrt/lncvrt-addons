@@ -1,9 +1,11 @@
 package xyz.lncvrt.lncvrtAddons.commands;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
+import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.DoubleSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.StringSetting;
@@ -22,15 +24,15 @@ public class AutoLoginCommand extends Command {
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
-        builder.then(literal("command")
+        builder.then(literal("login-command")
             .executes(context -> {
                 Module autologin = Modules.get().get("auto-login");
-                Setting<?> setting = autologin.settings.get("command");
+                Setting<?> setting = autologin.settings.get("login-command");
                 if (setting instanceof StringSetting) {
                     String currentCommand = ((StringSetting) setting).get();
-                    info("Current command is \"/" + currentCommand + "\".");
+                    info("Current login command is \"/" + currentCommand + "\".");
                 } else {
-                    error("Failed to retrieve command");
+                    error("Failed to retrieve login command");
                 }
                 return SINGLE_SUCCESS;
             })
@@ -39,26 +41,26 @@ public class AutoLoginCommand extends Command {
                     String arg = StringArgumentType.getString(context, "command");
 
                     Module autologin = Modules.get().get("auto-login");
-                    Setting<?> setting = autologin.settings.get("command");
+                    Setting<?> setting = autologin.settings.get("login-command");
                     if (setting instanceof StringSetting) {
                         ((StringSetting) setting).set(arg);
-                        info("Successfully set command to \"/" + arg + "\".");
+                        info("Successfully set login command to \"/" + arg + "\".");
                     } else {
-                        error("Failed to set command");
+                        error("Failed to set login command");
                     }
                     return SINGLE_SUCCESS;
                 }))
         );
 
-        builder.then(literal("delay")
+        builder.then(literal("login-delay")
             .executes(context -> {
                 Module autologin = Modules.get().get("auto-login");
-                Setting<?> setting = autologin.settings.get("delay");
+                Setting<?> setting = autologin.settings.get("login-delay");
                 if (setting instanceof DoubleSetting) {
                     double currentDelay = ((DoubleSetting) setting).get();
-                    info("Current delay is " + DECIMAL_FORMAT.format(currentDelay) + "s.");
+                    info("Current login delay is " + DECIMAL_FORMAT.format(currentDelay) + "s.");
                 } else {
-                    error("Failed to retrieve delay");
+                    error("Failed to retrieve login delay");
                 }
                 return SINGLE_SUCCESS;
             })
@@ -67,13 +69,69 @@ public class AutoLoginCommand extends Command {
                     double arg = DoubleArgumentType.getDouble(context, "delay");
 
                     Module autologin = Modules.get().get("auto-login");
-                    Setting<?> setting = autologin.settings.get("delay");
+                    Setting<?> setting = autologin.settings.get("login-delay");
                     if (setting instanceof DoubleSetting) {
                         double formattedDelay = Double.parseDouble(DECIMAL_FORMAT.format(arg));
                         ((DoubleSetting) setting).set(formattedDelay);
-                        info("Successfully set delay to " + formattedDelay + "s.");
+                        info("Successfully set login delay to " + formattedDelay + "s.");
                     } else {
-                        error("Failed to set delay");
+                        error("Failed to set login delay");
+                    }
+                    return SINGLE_SUCCESS;
+                }))
+        );
+
+        builder.then(literal("use-message-listener")
+            .executes(context -> {
+                Module autologin = Modules.get().get("auto-login");
+                Setting<?> setting = autologin.settings.get("use-message-listener");
+                if (setting instanceof BoolSetting) {
+                    boolean currentStatus = ((BoolSetting) setting).get();
+                    info("Use message listener is " + (currentStatus ? "enabled" : "disabled") + ".");
+                } else {
+                    error("Failed to retrieve message listener status");
+                }
+                return SINGLE_SUCCESS;
+            })
+            .then(argument("status", BoolArgumentType.bool())
+                .executes(context -> {
+                    boolean arg = BoolArgumentType.getBool(context, "status");
+
+                    Module autologin = Modules.get().get("auto-login");
+                    Setting<?> setting = autologin.settings.get("use-message-listener");
+                    if (setting instanceof BoolSetting) {
+                        ((BoolSetting) setting).set(arg);
+                        info("Successfully set message listener status to " + arg + "( " + (arg ? "enabled" : "disabled") + ").");
+                    } else {
+                        error("Failed to set message listener status");
+                    }
+                    return SINGLE_SUCCESS;
+                }))
+        );
+
+        builder.then(literal("message-for-listener")
+            .executes(context -> {
+                Module autologin = Modules.get().get("auto-login");
+                Setting<?> setting = autologin.settings.get("message-for-listener");
+                if (setting instanceof StringSetting) {
+                    String currentCommand = ((StringSetting) setting).get();
+                    info("Current message for listener is \"" + currentCommand + "\".");
+                } else {
+                    error("Failed to retrieve message for listener");
+                }
+                return SINGLE_SUCCESS;
+            })
+            .then(argument("message", StringArgumentType.greedyString())
+                .executes(context -> {
+                    String arg = StringArgumentType.getString(context, "message");
+
+                    Module autologin = Modules.get().get("auto-login");
+                    Setting<?> setting = autologin.settings.get("message-for-listener");
+                    if (setting instanceof StringSetting) {
+                        ((StringSetting) setting).set(arg);
+                        info("Successfully set message for listener to \"" + arg + "\".");
+                    } else {
+                        error("Failed to set message for listener");
                     }
                     return SINGLE_SUCCESS;
                 }))

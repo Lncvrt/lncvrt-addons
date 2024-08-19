@@ -1,18 +1,18 @@
 package xyz.lncvrt.lncvrtAddons;
 
-import xyz.lncvrt.lncvrtAddons.commands.AutoLoginCommand;
-import xyz.lncvrt.lncvrtAddons.modules.AutoLogin;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
-import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import org.slf4j.Logger;
+import xyz.lncvrt.lncvrtAddons.commands.AutoLoginCommand;
+import xyz.lncvrt.lncvrtAddons.event.MessageEventHandler;
+import xyz.lncvrt.lncvrtAddons.modules.AutoLogin;
+import xyz.lncvrt.lncvrtAddons.modules.FallSpeed;
 
 public class LncvrtAddons extends MeteorAddon {
     public static final Logger LOG = LogUtils.getLogger();
-    public static final Category CATEGORY = new Category("Lncvrt Addons");
 
     @Override
     public void onInitialize() {
@@ -20,14 +20,13 @@ public class LncvrtAddons extends MeteorAddon {
 
         // Modules
         Modules.get().add(new AutoLogin());
+        Modules.get().add(new FallSpeed());
 
         // Commands
         Commands.add(new AutoLoginCommand());
-    }
 
-    @Override
-    public void onRegisterCategories() {
-        Modules.registerCategory(CATEGORY);
+        // Register event handlers
+        MessageEventHandler.register();
     }
 
     @Override
