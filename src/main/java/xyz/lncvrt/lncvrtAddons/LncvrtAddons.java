@@ -8,9 +8,7 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import org.slf4j.Logger;
 import xyz.lncvrt.lncvrtAddons.commands.AutoLoginCommand;
 import xyz.lncvrt.lncvrtAddons.event.MessageEventHandler;
-import xyz.lncvrt.lncvrtAddons.modules.AutoLogin;
-import xyz.lncvrt.lncvrtAddons.modules.FallSpeed;
-import xyz.lncvrt.lncvrtAddons.modules.ForceSwim;
+import xyz.lncvrt.lncvrtAddons.modules.*;
 
 public class LncvrtAddons extends MeteorAddon {
     public static final Logger LOG = LogUtils.getLogger();
@@ -23,6 +21,8 @@ public class LncvrtAddons extends MeteorAddon {
         Modules.get().add(new AutoLogin());
         Modules.get().add(new FallSpeed());
         Modules.get().add(new ForceSwim());
+        Modules.get().add(new InstantStop());
+        Modules.get().add(new LegitSpeed());
 
         // Commands
         Commands.add(new AutoLoginCommand());

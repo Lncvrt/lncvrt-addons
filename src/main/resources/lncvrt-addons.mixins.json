@@ -4,12 +4,11 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "AutoLoginMixin",
-    "FallSpeedMixin"
+    "FallSpeedMixin",
+    "InstantStopMixin",
+    "LegitSpeedMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "ForceSwimMixin"
-  ]
+  }
 }
