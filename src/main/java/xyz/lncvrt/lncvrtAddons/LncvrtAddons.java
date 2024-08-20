@@ -10,6 +10,7 @@ import xyz.lncvrt.lncvrtAddons.commands.AutoLoginCommand;
 import xyz.lncvrt.lncvrtAddons.event.MessageEventHandler;
 import xyz.lncvrt.lncvrtAddons.modules.AutoLogin;
 import xyz.lncvrt.lncvrtAddons.modules.FallSpeed;
+import xyz.lncvrt.lncvrtAddons.modules.ForceSwim;
 
 public class LncvrtAddons extends MeteorAddon {
     public static final Logger LOG = LogUtils.getLogger();
@@ -21,6 +22,7 @@ public class LncvrtAddons extends MeteorAddon {
         // Modules
         Modules.get().add(new AutoLogin());
         Modules.get().add(new FallSpeed());
+        Modules.get().add(new ForceSwim());
 
         // Commands
         Commands.add(new AutoLoginCommand());

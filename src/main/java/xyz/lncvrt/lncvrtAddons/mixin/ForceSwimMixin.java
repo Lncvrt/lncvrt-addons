@@ -4,26 +4,25 @@ import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
-public class FallSpeedMixin {
+public abstract class ForceSwimMixin {
     @Inject(method = "tickMovement", at = @At("HEAD"))
-    private void onTickMovement(CallbackInfo ci) {
-        Module fallSpeed = Modules.get().get("fall-speed");
-        if (fallSpeed.isActive()) {
+    private void checkAndSwim(CallbackInfo ci) {
+        Module forceSwim = Modules.get().get("force-swim");
+        if (forceSwim.isActive()) {
             PlayerEntity player = (PlayerEntity) (Object) this;
+            Setting<?> onlyInWaterSetting = forceSwim.settings.get("only-in-water");
+            boolean onlyInWater = (boolean) onlyInWaterSetting.get();
 
-            if (player.getVelocity().y < 0 && !player.isOnGround()) {
-                Setting<?> speedSetting = fallSpeed.settings.get("speed");
-                double speed = (double) speedSetting.get();
-
-                Vec3d newVelocity = player.getVelocity().multiply(1, speed, 1);
-                player.setVelocity(newVelocity);
+            if (!onlyInWater || (player.isSubmergedInWater())) {
+                if (!player.isSwimming() && !player.getAbilities().flying) {
+                    player.setSwimming(true);
+                }
             }
         }
     }
