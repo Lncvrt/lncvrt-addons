@@ -3,6 +3,7 @@ package xyz.lncvrt.lncvrtAddons.mixin;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +20,7 @@ public abstract class ForceSwimMixin {
             Setting<?> onlyInWaterSetting = forceSwim.settings.get("only-in-water");
             boolean onlyInWater = (boolean) onlyInWaterSetting.get();
 
-            if (!onlyInWater || (player.isSubmergedInWater())) {
+            if (player == MinecraftClient.getInstance().player && !onlyInWater || (player.isSubmergedInWater())) {
                 if (!player.isSwimming() && !player.getAbilities().flying) {
                     player.setSwimming(true);
                 }

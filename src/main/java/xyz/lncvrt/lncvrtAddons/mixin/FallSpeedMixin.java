@@ -4,6 +4,7 @@ import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +20,7 @@ public class FallSpeedMixin {
         if (fallSpeed.isActive()) {
             PlayerEntity player = (PlayerEntity) (Object) this;
 
-            if (player.getVelocity().y < 0 && !player.isOnGround()) {
+            if (player == MinecraftClient.getInstance().player && player.getVelocity().y < 0 && !player.isOnGround()) {
                 Setting<?> speedSetting = fallSpeed.settings.get("speed");
                 Setting<?> disableInWaterSetting = fallSpeed.settings.get("disable-in-water");
                 double speed = (double) speedSetting.get();

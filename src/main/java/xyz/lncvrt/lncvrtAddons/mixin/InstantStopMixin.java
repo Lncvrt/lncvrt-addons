@@ -2,6 +2,7 @@ package xyz.lncvrt.lncvrtAddons.mixin;
 
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +18,7 @@ public abstract class InstantStopMixin {
         if (instantStop.isActive()) {
             PlayerEntity player = (PlayerEntity) (Object) this;
 
-            if (player.forwardSpeed == 0 && player.sidewaysSpeed == 0) {
+            if (player == MinecraftClient.getInstance().player && player.forwardSpeed == 0 && player.sidewaysSpeed == 0) {
                 player.setVelocity(0, player.getVelocity().y, 0);
             }
         }

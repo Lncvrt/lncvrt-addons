@@ -3,6 +3,7 @@ package xyz.lncvrt.lncvrtAddons.mixin;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.player.Rotations;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +22,7 @@ public abstract class LegitSpeedMixin {
             double velX = player.getVelocity().x;
             double velZ = player.getVelocity().z;
 
-            if (velX != 0 || velZ != 0) {
+            if (player == MinecraftClient.getInstance().player && velX != 0 || velZ != 0) {
                 float optimalYaw = (float) (MathHelper.atan2(velZ, velX) * (180 / Math.PI)) - 90;
                 float optimalPitch = player.getPitch();
 
