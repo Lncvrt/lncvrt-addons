@@ -5,6 +5,7 @@
   "client": [
     "AutoLoginMixin",
     "FallSpeedMixin",
+    "ForceSwimMixin",
     "InstantStopMixin",
     "LegitSpeedMixin"
   ],
