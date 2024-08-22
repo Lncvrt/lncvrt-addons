@@ -6,8 +6,7 @@
     "AutoLoginMixin",
     "FallSpeedMixin",
     "ForceSwimMixin",
-    "InstantStopMixin",
-    "LegitSpeedMixin"
+    "InstantStopMixin"
   ],
   "injectors": {
     "defaultRequire": 1
