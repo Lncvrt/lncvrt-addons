@@ -10,7 +10,7 @@ public class AutoLogin extends Module {
     private final Setting<Double> loginDelay = sgGeneral.add(new DoubleSetting.Builder()
         .name("login-delay")
         .description("Time in seconds to wait before executing the login command.")
-        .defaultValue(5.0d)
+        .defaultValue(1.0d)
         .range(0.0d, 10.0d)
         .decimalPlaces(2)
         .build()
